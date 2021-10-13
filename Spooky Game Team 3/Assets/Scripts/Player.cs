@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        //Debug.Log(health);
     }
 
     void Move()
