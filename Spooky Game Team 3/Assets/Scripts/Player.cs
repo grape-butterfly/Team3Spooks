@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        if (!moved)
+        if (!moved || Time.time <= moveStart + .05)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
