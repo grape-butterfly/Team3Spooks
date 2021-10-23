@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
-        //Debug.Log(health);
+        CheckForDeath();
     }
 
     void Move()
@@ -79,8 +79,25 @@ public class Player : MonoBehaviour
                 moved = false;
             }
         }
-
+    }
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log("Taking " + damage + " damage");
     }
 
+    private void CheckForDeath()
+    {
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
 
+    private void Die()
+    {
+        gameObject.SetActive(false);
+        Destroy(this.gameObject);
+        Debug.Log("Player died!");
+    }
 }
