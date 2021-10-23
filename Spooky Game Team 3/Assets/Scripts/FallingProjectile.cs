@@ -27,10 +27,10 @@ public class FallingProjectile : MonoBehaviour
         if(other.transform.tag == "Player")
         {
             other.GetComponent <Player>().health -= damage;
-        } 
+            Destroy(gameObject);
+        }
         else if(other.transform.tag == "DeletionZone")
         {
-            Debug.Log("gottem");
             Destroy(gameObject);
         }
     }

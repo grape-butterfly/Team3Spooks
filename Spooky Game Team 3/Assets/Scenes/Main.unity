@@ -241,9 +241,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd04eeeecd6716443bcc430163fb10b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dodgeTime: 0.4
+  dodgeTime: 0.25
   verticalDodgeLength: 1.5
-  horizontalDodgeLength: 2
+  horizontalDodgeLength: 1
+  moveCooldown: 0.05
   health: 3
 --- !u!61 &87854518
 BoxCollider2D:
@@ -398,8 +399,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 3942121566183832392, guid: 8183bad202d7c3440b5249b6b5cad434, type: 3}
-  delay: 500
+  baseDelay: 500
   startDelay: 500
+  patternNumber: 0
 --- !u!1 &1474328193
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,8 +511,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 3942121566183832392, guid: 8183bad202d7c3440b5249b6b5cad434, type: 3}
-  delay: 500
-  startDelay: 250
+  baseDelay: 500
+  startDelay: 1000
+  patternNumber: 0
 --- !u!4 &2010641417
 Transform:
   m_ObjectHideFlags: 0

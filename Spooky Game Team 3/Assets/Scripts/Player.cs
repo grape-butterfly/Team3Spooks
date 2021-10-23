@@ -7,15 +7,14 @@ public class Player : MonoBehaviour
     public float dodgeTime;
     public float verticalDodgeLength;
     public float horizontalDodgeLength;
+    public float moveCooldown;
     public int health;
 
     private Rigidbody2D rb;
     private Vector3 position;
 
-    private bool vMoved = false;
-    private bool hMoved = false;
-    private float vMoveStart = 0;
-    private float hMoveStart = 0;
+    private bool moved = false;
+    private float moveStart = 0;
     private float startX;
     private float startY;
 
@@ -37,59 +36,50 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        if (!vMoved)
+        if (!moved)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                vMoved = true;
+                moved = true;
                 position[1] += verticalDodgeLength;
-                vMoveStart = Time.time;
+                moveStart = Time.time;
                 transform.position = position;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                vMoved = true;
+                moved = true;
                 position[1] -= verticalDodgeLength;
-                vMoveStart = Time.time;
+                moveStart = Time.time;
                 transform.position = position;
             }
-        }
-        else
-        {
-            if (Time.time >= vMoveStart + dodgeTime)
-            {
-                vMoved = false;
-                position[1] = startY;
-                transform.position = position;
-            }
-        }
-
-        if (!hMoved)
-        {
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                hMoved = true;
+                moved = true;
                 position[0] += horizontalDodgeLength;
-                hMoveStart = Time.time;
+                moveStart = Time.time;
                 transform.position = position;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                hMoved = true;
+                moved = true;
                 position[0] -= horizontalDodgeLength;
-                hMoveStart = Time.time;
+                moveStart = Time.time;
                 transform.position = position;
             }
         }
         else
         {
-            if (Time.time >= hMoveStart + dodgeTime)
+            if (Time.time >= moveStart + dodgeTime)
             {
-                hMoved = false;
+                position[1] = startY;
                 position[0] = startX;
                 transform.position = position;
             }
+            if (Time.time >= moveStart + dodgeTime + moveCooldown){
+                moved = false;
+            }
         }
+
     }
 
 
