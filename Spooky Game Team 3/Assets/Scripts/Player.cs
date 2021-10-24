@@ -87,8 +87,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        healthBar.GetComponent<HealthBar>().RemoveHeart(health);
-        Debug.Log("Taking " + damage + " damage");
+        healthBar.GetComponent<HealthBar>().RemoveHeart();
     }
 
     private void CheckForDeath()
