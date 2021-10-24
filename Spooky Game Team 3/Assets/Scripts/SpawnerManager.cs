@@ -41,8 +41,7 @@ public class SpawnerManager : MonoBehaviour
       }
     }
 
-    void FireSpawners()
-    {
+    void FireSpawners(){
       for (int x = 0; x < 6; x++)
       {
         if(beatArray[x, counter] == 1){
@@ -56,7 +55,64 @@ public class SpawnerManager : MonoBehaviour
     void FillBeatArray(){
       counter = 0;
       ClearBeatArray();
-
+      int pNum = GetPatternNum();
+      Debug.Log(pNum);
+      switch (pNum){
+        case 1:
+          beatArray[0,0] = 1;
+          beatArray[1,3] = 1;
+          beatArray[0,7] = 1;
+          break;
+        case 2:
+          beatArray[0,0] = 1;
+          beatArray[2,2] = 1;
+          beatArray[4,6] = 1;
+          break;
+        case 3:
+          beatArray[4,0] = 1;
+          beatArray[5,2] = 1;
+          beatArray[4,4] = 1;
+          beatArray[5,6] = 1;
+          break;
+        case 4:
+          beatArray[3,0] = 1;
+          beatArray[5,2] = 1;
+          beatArray[0,4] = 1;
+          beatArray[1,6] = 1;
+          break;
+        case 5:
+          beatArray[5,0] = 1;
+          beatArray[5,2] = 1;
+          beatArray[1,4] = 1;
+          beatArray[1,6] = 1;
+          break;
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+          beatArray[1,0] = 1;
+          beatArray[0,1] = 1;
+          beatArray[1,2] = 1;
+          beatArray[0,3] = 1;
+          beatArray[3,4] = 1;
+          beatArray[5,6] = 1;
+          break;
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+          beatArray[0,0] = 1;
+          beatArray[4,0] = 1;
+          beatArray[1,2] = 1;
+          beatArray[3,2] = 1;
+          break;
+        default:
+          beatArray[0,0] = 1;
+          beatArray[1,3] = 1;
+          break;
+      }
     }
 
     void ClearBeatArray(){
@@ -66,4 +122,12 @@ public class SpawnerManager : MonoBehaviour
         }
       }
     }
+
+    int GetPatternNum(){
+      if(Time.frameCount <= beatDelay * 48)
+        return Random.Range(0,6);
+      else
+        return Random.Range(4,15);
+    }
+
 }
