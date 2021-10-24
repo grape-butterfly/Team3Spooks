@@ -16,12 +16,12 @@ public class SpawnerManager : MonoBehaviour
 
     private int counter = 0;
     //This is the array that determines which spawners will fire on each beatDelay-length interval. It lasts for 8 beats and covers all 6 spawners
-    private int[,] beatArray = new int[,] {{1,0,0,0,0,0,0,0}, {0,1,0,0,0,0,0,0}, {0,0,1,0,0,0,0,0}, {0,0,0,1,0,0,0,0}, {0,0,0,0,1,0,0,0}, {0,0,0,0,0,1,0,0}};
+    private int[,] beatArray = new int[,] {{1,0,0,0,0,0,0,0}, {0,0,0,0,1,0,0,0}, {0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0}};
 
     // Start is called before the first frame update
     void Start()
     {
-      Application.targetFrameRate = 60; 
+      Application.targetFrameRate = 60;
       spawners =  new ProjectileSpawner[6] {leftSpawner, rightSpawner, leftUpSpawner, leftDownSpawner, rightUpSpawner, rightDownSpawner};
     }
 
@@ -37,7 +37,7 @@ public class SpawnerManager : MonoBehaviour
     {
       if(Time.frameCount % beatDelay == 0){
         FireSpawners();
-        counter = (counter + 1) % 8;
+        counter++;
       }
     }
 
@@ -54,6 +54,7 @@ public class SpawnerManager : MonoBehaviour
     }
 
     void FillBeatArray(){
+      counter = 0;
       ClearBeatArray();
 
     }
