@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float horizontalDodgeLength;
     public float moveCooldown;
     public int health;
+    public bool isDead = false;
 
     private Rigidbody2D rb;
     private Vector3 position;
@@ -18,6 +19,8 @@ public class Player : MonoBehaviour
     private float startX;
     private float startY;
 
+    public GameObject healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour
         startX = transform.position.x;
         startY = transform.position.y;
         position = transform.position;
+        healthBar = GameObject.Find("Hearts");
     }
 
     // Update is called once per frame
@@ -83,6 +87,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        healthBar.GetComponent<HealthBar>().RemoveHeart(health);
         Debug.Log("Taking " + damage + " damage");
     }
 
@@ -96,6 +101,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        isDead = true;
         gameObject.SetActive(false);
         Destroy(this.gameObject);
         Debug.Log("Player died!");
