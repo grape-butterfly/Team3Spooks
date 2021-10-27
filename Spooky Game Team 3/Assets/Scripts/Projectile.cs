@@ -8,16 +8,16 @@ public class Projectile : MonoBehaviour
   public float fireMultiplier;
   public int direction; //-1 for right to left, 1 for left to right
   public float firePosition;
-  public float multiplier = 1;
+  public float multiplier;
 
   private bool fired = false;
   protected Vector3 position;
-
 
   // Start is called before the first frame update
   void Start()
   {
       position = transform.position;
+      multiplier = 1;
   }
 
   // Update is called once per frame
