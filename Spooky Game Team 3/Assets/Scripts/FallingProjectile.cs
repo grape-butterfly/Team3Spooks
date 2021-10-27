@@ -5,9 +5,9 @@ using UnityEngine;
 public class FallingProjectile : MonoBehaviour
 {
     public float speed;
-    public int damage;
 
-    private Vector3 position;
+
+    protected Vector3 position;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class FallingProjectile : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
-            other.GetComponent<Player>().TakeDamage(damage);
+            other.GetComponent<Player>().TakeDamage(1);
             Destroy(gameObject);
         }
         else if(other.transform.tag == "DeletionZone")

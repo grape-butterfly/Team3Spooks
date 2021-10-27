@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        if (!moved || Time.time <= moveStart + .05)
+        if (!moved || Time.time <= moveStart + .1)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {

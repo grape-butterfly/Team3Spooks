@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileSpawner : MonoBehaviour
 {
-    public GameObject projectile;
+    public Projectile projectile;
 
     // Start is called before the first frame update
     void Start()

@@ -10,9 +10,12 @@ public class SpawnerManager : MonoBehaviour
     public ProjectileSpawner leftDownSpawner;
     public ProjectileSpawner rightUpSpawner;
     public ProjectileSpawner rightDownSpawner;
+    public Player player;
     private ProjectileSpawner[] spawners;
 
     public double beatDelay;
+    public float lastChanceMultiplier;
+    private bool lastChance = false;
 
     private int counter = 0;
     //This is the array that determines which spawners will fire on each beatDelay-length interval. It lasts for 8 beats and covers all 6 spawners
@@ -48,16 +51,31 @@ public class SpawnerManager : MonoBehaviour
           spawners[x].Fire();
         }
       }
-      if(counter == 7)
-        FillBeatArray();
+      if(counter == 7){
+        if(!lastChance && player.health == 1){
+          Debug.Log("LAST CHANCE TIME");
+          lastChance = true;
+          beatDelay /= 2;
+          player.dodgeTime /= 2;
+          for(int x = 0; x < 6; x++){
+            spawners[x].projectile.multiplier = lastChanceMultiplier;
+          }
+          counter = 0;
+          ClearBeatArray();
+        } else {
+          counter = 0;
+          FillBeatArray();
+        }
+      }
     }
 
     void FillBeatArray(){
-      counter = 0;
       ClearBeatArray();
       int pNum = GetPatternNum();
       Debug.Log(pNum);
       switch (pNum){
+        //This is the only moderately gross way I'm filling beatArray, beatArray[x,y] means spawner x fires at time y
+        //Spawner numbers: 0: center left, 1: center right, 2: left up, 3: left down, 4: right up, 5: right down
         case 1:
           beatArray[0,0] = 1;
           beatArray[1,3] = 1;
@@ -102,11 +120,64 @@ public class SpawnerManager : MonoBehaviour
         case 12:
         case 13:
         case 14:
-        case 15:
           beatArray[0,0] = 1;
           beatArray[4,0] = 1;
           beatArray[1,2] = 1;
           beatArray[3,2] = 1;
+          break;
+        case 15:
+        case 16:
+        case 17:
+          beatArray[1,0] = 1;
+          beatArray[5,0] = 1;
+          beatArray[0,2] = 1;
+          beatArray[4,2] = 1;
+          break;
+        case 18:
+        case 19:
+        case 20:
+          beatArray[2,0] = 1;
+          beatArray[4,0] = 1;
+          beatArray[3,1] = 1;
+          beatArray[5,1] = 1;
+          beatArray[2,2] = 1;
+          beatArray[4,2] = 1;
+          beatArray[0,4] = 1;
+          beatArray[1,5] = 1;
+          beatArray[2,7] = 1;
+          beatArray[4,7] = 1;
+          break;
+        case 21:
+        case 22:
+        case 23:
+          beatArray[0,0] = 1;
+          beatArray[1,1] = 1;
+          beatArray[0,2] = 1;
+          beatArray[1,3] = 1;
+          beatArray[3,2] = 1;
+          beatArray[5,3] = 1;
+          beatArray[0,4] = 1;
+          beatArray[1,5] = 1;
+          beatArray[0,6] = 1;
+          beatArray[1,7] = 1;
+          beatArray[2,6] = 1;
+          beatArray[4,7] = 1;
+          break;
+        case 24:
+        case 25:
+        case 26:
+        case 27:
+        case 28:
+          beatArray[5,0] = 1;
+          beatArray[0,0] = 1;
+          beatArray[3,2] = 1;
+          beatArray[1,2] = 1;
+          beatArray[0,3] = 1;
+          beatArray[1,4] = 1;
+          beatArray[5,5] = 1;
+          beatArray[0,5] = 1;
+          beatArray[3,7] = 1;
+          beatArray[1,7] = 1;
           break;
         default:
           beatArray[0,0] = 1;
@@ -124,10 +195,12 @@ public class SpawnerManager : MonoBehaviour
     }
 
     int GetPatternNum(){
-      if(Time.frameCount <= beatDelay * 48)
+      if(lastChance)
+        return Random.Range(20,40);
+      else if(Time.frameCount <= beatDelay * 48)
         return Random.Range(0,6);
       else
-        return Random.Range(4,15);
+        return Random.Range(4,40);
     }
 
 }
