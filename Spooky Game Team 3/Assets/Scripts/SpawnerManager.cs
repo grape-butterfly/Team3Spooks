@@ -11,6 +11,7 @@ public class SpawnerManager : MonoBehaviour
     public ProjectileSpawner rightUpSpawner;
     public ProjectileSpawner rightDownSpawner;
     public Player player;
+    public LastChanceUI lc;
     private ProjectileSpawner[] spawners;
 
     public double beatDelay;
@@ -54,9 +55,8 @@ public class SpawnerManager : MonoBehaviour
       if(counter == 7){
         if(!lastChance && player.health == 1){
           Debug.Log("LAST CHANCE TIME");
+          lc.Display();
           lastChance = true;
-          beatDelay /= 2;
-          player.dodgeTime /= 2;
           for(int x = 0; x < 6; x++){
             spawners[x].projectile.multiplier = lastChanceMultiplier;
           }

@@ -15,8 +15,10 @@ public class BackgroundSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.frameCount % 130 == 0){
-          Instantiate(background, transform.position, Quaternion.identity);
-        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D other){
+        Instantiate(background, transform.position, Quaternion.identity);
     }
 }
